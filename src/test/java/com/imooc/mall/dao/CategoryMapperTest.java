@@ -1,6 +1,5 @@
-package com.imooc.mall;
+package com.imooc.mall.dao;
 
-import com.imooc.mall.dao.CategoryMapper;
 import com.imooc.mall.pojo.Category;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,16 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.*;
+
+/**
+ * @author pengfei.zhao
+ * @date 2020/10/31 16:53
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MallApplicationTests {
+public class CategoryMapperTest {
 
     @Autowired
     private CategoryMapper categoryMapper;
 
     @Test
-    public void testCategory() {
-        Category category = categoryMapper.findById(100001);
+    public void findById() {
+    }
+
+    @Test
+    public void queryById() {
+        Category category = categoryMapper.queryById(100001);
         System.out.println(category);
     }
 }
