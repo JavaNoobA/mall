@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
-
 /**
  * @author pengfei.zhao
  * @date 2020/10/31 16:53
@@ -26,7 +24,7 @@ public class CategoryMapperTest {
 
     @Test
     public void queryById() {
-        Category category = categoryMapper.queryById(100001);
+        Category category = categoryMapper.selectByPrimaryKey(100001);
         System.out.println(category);
     }
 }

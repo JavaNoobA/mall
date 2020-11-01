@@ -17,7 +17,7 @@ public class MallApplicationTests {
 
     @Test
     public void testCategory() {
-        Category category = categoryMapper.findById(100001);
+        Category category = categoryMapper.selectByPrimaryKey(100001);
         System.out.println(category);
     }
 }

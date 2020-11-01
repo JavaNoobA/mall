@@ -98,9 +98,6 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.imooc.mall.pojo.User">
@@ -149,4 +146,16 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="countByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    count(1)
+    from mall_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="countByEmail" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    count(1)
+    from mall_user
+    where email = #{email,jdbcType=VARCHAR}
+  </select>
 </mapper>

@@ -1,10 +1,12 @@
 package com.imooc.mall.pojo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class User {
     private Integer id;
 
@@ -26,4 +28,10 @@ public class User {
 
     private Date updateTime;
 
+    public User(String username, String password, String email, Integer role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
 }
