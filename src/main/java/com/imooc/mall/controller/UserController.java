@@ -30,9 +30,6 @@ public class UserController {
     @GetMapping
     public ResponseVo<User> user(HttpSession session) {
         User user = (User) session.getAttribute(MailConst.CURRENT_USER);
-        if (user == null) {
-            return ResponseVo.error(ResponseEnum.NEED_LOGIN);
-        }
         user.setPassword("");
         return ResponseVo.success(user);
     }
@@ -66,13 +63,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public ResponseVo logout(HttpSession session) {
-        User user = (User) session.getAttribute(MailConst.CURRENT_USER);
-        if (user == null) {
-            return ResponseVo.error(ResponseEnum.NEED_LOGIN);
-        }
-
         session.removeAttribute(MailConst.CURRENT_USER);
-
         return ResponseVo.success("退出成功");
     }
 }
