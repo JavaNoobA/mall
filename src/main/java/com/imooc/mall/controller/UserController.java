@@ -1,17 +1,18 @@
 package com.imooc.mall.controller;
 
+import com.imooc.mall.consts.MailConst;
 import com.imooc.mall.enums.ResponseEnum;
-import com.imooc.mall.form.UserForm;
+import com.imooc.mall.form.UserLoginForm;
+import com.imooc.mall.form.UserRegisterForm;
+import com.imooc.mall.pojo.User;
 import com.imooc.mall.service.impl.UserService;
 import com.imooc.mall.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -26,9 +27,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping
+    public ResponseVo<User> user(HttpSession session) {
+        User user = (User) session.getAttribute(MailConst.CURRENT_USER);
+        if (user == null) {
+            return ResponseVo.error(ResponseEnum.NEED_LOGIN);
+        }
+        user.setPassword("");
+        return ResponseVo.success(user);
+    }
+
     @PostMapping("/register")
-    public ResponseVo register(@Valid @RequestBody UserForm userForm,
-                                     BindingResult bindingResult) {
+    public ResponseVo register(@Valid @RequestBody UserRegisterForm userRegisterForm,
+                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("表单检验有误, {} - {}",
                     bindingResult.getFieldError().getField(),
@@ -37,6 +48,31 @@ public class UserController {
                     bindingResult.getFieldError().getField() + " " + bindingResult.getFieldError().getDefaultMessage());
 
         }
-        return userService.register(userForm);
+        return userService.register(userRegisterForm);
+    }
+
+    @PostMapping("/login")
+    public ResponseVo<User> login(@Valid @RequestBody UserLoginForm loginForm,
+                                  BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return ResponseVo.error(ResponseEnum.PARAM_ERROR);
+
+        }
+        final ResponseVo<User> userResponse = userService.login(loginForm.getUsername(), loginForm.getPassword());
+        session.setAttribute(MailConst.CURRENT_USER, userResponse.getData());
+
+        return userResponse;
+    }
+
+    @GetMapping("/logout")
+    public ResponseVo logout(HttpSession session) {
+        User user = (User) session.getAttribute(MailConst.CURRENT_USER);
+        if (user == null) {
+            return ResponseVo.error(ResponseEnum.NEED_LOGIN);
+        }
+
+        session.removeAttribute(MailConst.CURRENT_USER);
+
+        return ResponseVo.success("退出成功");
     }
 }

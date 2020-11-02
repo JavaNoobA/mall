@@ -158,4 +158,11 @@
     from mall_user
     where email = #{email,jdbcType=VARCHAR}
   </select>
+  <select id="selectByUsernamePwd" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mall_user
+    where username = #{username,jdbcType=VARCHAR} AND password = #{password,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

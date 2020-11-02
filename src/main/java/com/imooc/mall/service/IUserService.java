@@ -1,6 +1,7 @@
 package com.imooc.mall.service;
 
-import com.imooc.mall.form.UserForm;
+import com.imooc.mall.form.UserRegisterForm;
+import com.imooc.mall.pojo.User;
 import com.imooc.mall.vo.ResponseVo;
 
 /**
@@ -11,9 +12,10 @@ public interface IUserService {
     /**
      * 注册
      */
-    ResponseVo register(UserForm userForm);
+    ResponseVo<User> register(UserRegisterForm userRegisterForm);
 
     /**
      * 登录
      */
+    ResponseVo<User> login(String username, String password);
 }

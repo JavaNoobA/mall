@@ -6,17 +6,13 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author pengfei.zhao
- * @date 2020/11/1 21:45
+ * @date 2020/11/2 20:09
  */
 @Data
-public class UserForm {
-
+public class UserLoginForm {
     @NotBlank
     private String username;
 
     @NotBlank
     private String password;
-
-    @NotBlank
-    private String email;
 }

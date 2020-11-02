@@ -3,7 +3,7 @@ package com.imooc.mall.service.impl;
 import com.imooc.mall.dao.UserMapper;
 import com.imooc.mall.enums.ResponseEnum;
 import com.imooc.mall.enums.RoleEnum;
-import com.imooc.mall.form.UserForm;
+import com.imooc.mall.form.UserRegisterForm;
 import com.imooc.mall.pojo.User;
 import com.imooc.mall.service.IUserService;
 import com.imooc.mall.vo.ResponseVo;
@@ -25,20 +25,20 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public ResponseVo register(UserForm userForm) {
-        int countByUsername = userMapper.countByUsername(userForm.getUsername());
+    public ResponseVo<User> register(UserRegisterForm userRegisterForm) {
+        int countByUsername = userMapper.countByUsername(userRegisterForm.getUsername());
         if (countByUsername > 0) {
-            return ResponseVo.error(ResponseEnum.USER_EXIST);
+            return ResponseVo.error(ResponseEnum.USERNAME_EXIST);
         }
 
-        int countByEmail = userMapper.countByEmail(userForm.getEmail());
+        int countByEmail = userMapper.countByEmail(userRegisterForm.getEmail());
         if (countByEmail > 0) {
             return ResponseVo.error(ResponseEnum.EMAIL_EXIST);
         }
-        String md5Pwd = DigestUtils.md5DigestAsHex(userForm.getPassword().getBytes());
-        userForm.setPassword(md5Pwd);
+        String md5Pwd = DigestUtils.md5DigestAsHex(userRegisterForm.getPassword().getBytes());
+        userRegisterForm.setPassword(md5Pwd);
         User user = new User();
-        BeanUtils.copyProperties(userForm, user);
+        BeanUtils.copyProperties(userRegisterForm, user);
         user.setRole(RoleEnum.CUSTOMER.getCode());
 
         int result = userMapper.insertSelective(user);
@@ -47,5 +47,19 @@ public class UserService implements IUserService {
         }
 
         return ResponseVo.success();
+    }
+
+    @Override
+    public ResponseVo<User> login(String username, String password) {
+        final String md5Pwd = DigestUtils.md5DigestAsHex(password.getBytes());
+        User user = userMapper.selectByUsernamePwd(username, md5Pwd);
+        if (user == null) {
+            return ResponseVo.error(ResponseEnum.USERNAME_OR_PASSWORD_ERROR);
+        }
+        if (!md5Pwd.equals(user.getPassword())) {
+            return ResponseVo.error(ResponseEnum.USERNAME_OR_PASSWORD_ERROR);
+        }
+
+        return ResponseVo.success(user);
     }
 }
