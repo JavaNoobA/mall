@@ -1,7 +1,7 @@
 package com.imooc.mall.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.imooc.mall.service.impl.ProductService;
+import com.imooc.mall.service.impl.ProductServiceImpl;
 import com.imooc.mall.vo.ProductDetailVo;
 import com.imooc.mall.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductController {
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @GetMapping("/products")
     public ResponseVo<PageInfo> list(@RequestParam(required = false) Integer categoryId,

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * @date 2020/11/2 21:23
  */
 @Service
-public class CategoryService implements ICategoryService {
+public class CategoryServiceImpl implements ICategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 

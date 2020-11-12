@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceTest extends MallApplicationTests {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Test
     public void register() {

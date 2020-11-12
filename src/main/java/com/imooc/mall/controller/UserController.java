@@ -5,7 +5,7 @@ import com.imooc.mall.enums.ResponseEnum;
 import com.imooc.mall.form.UserLoginForm;
 import com.imooc.mall.form.UserRegisterForm;
 import com.imooc.mall.pojo.User;
-import com.imooc.mall.service.impl.UserService;
+import com.imooc.mall.service.impl.UserServiceImpl;
 import com.imooc.mall.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @GetMapping
     public ResponseVo<User> user(HttpSession session) {

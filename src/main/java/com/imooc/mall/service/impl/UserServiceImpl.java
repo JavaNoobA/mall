@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @date 2020/11/1 17:01
  */
 @Service
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
     @Resource
     private UserMapper userMapper;
 

@@ -25,11 +25,11 @@ import static com.imooc.mall.enums.ResponseEnum.PRODUCT_OFF_SALE_OR_DELETE;
  * @date 2020/11/12 18:28
  */
 @Service
-public class ProductService implements IProductService {
+public class ProductServiceImpl implements IProductService {
     @Autowired
     private ProductMapper productMapper;
     @Autowired
-    private CategoryService categoryService;
+    private CategoryServiceImpl categoryService;
 
     @Override
     public ResponseVo<PageInfo> list(Integer categoryId, int pageNum, int pageSize) {

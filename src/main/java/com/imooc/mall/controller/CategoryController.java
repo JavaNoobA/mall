@@ -1,6 +1,6 @@
 package com.imooc.mall.controller;
 
-import com.imooc.mall.service.impl.CategoryService;
+import com.imooc.mall.service.impl.CategoryServiceImpl;
 import com.imooc.mall.vo.CategoryVo;
 import com.imooc.mall.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class CategoryController {
     @Autowired
-    private CategoryService categoryService;
+    private CategoryServiceImpl categoryService;
 
     @GetMapping("/categories")
     public ResponseVo<List<CategoryVo>> selectAll() {
