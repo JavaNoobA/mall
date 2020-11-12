@@ -1,0 +1,23 @@
+package com.imooc.mall.vo;
+
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author pengfei.zhao
+ * @date 2020/11/12 15:37
+ */
+@Data
+public class CategoryVo {
+    private Integer id;
+
+    private Integer parentId;
+
+    private String name;
+
+    private Integer sortOrder;
+
+    private List<CategoryVo> subCategories = new ArrayList<>();
+}
