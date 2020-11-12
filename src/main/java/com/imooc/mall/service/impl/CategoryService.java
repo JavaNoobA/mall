@@ -9,9 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -33,6 +31,21 @@ public class CategoryService implements ICategoryService {
                 .collect(Collectors.toList());
         findSubCategory(categories, categoryVoList);
         return ResponseVo.success(categoryVoList);
+    }
+
+    @Override
+    public void findSubCategoryId(Integer id, Set<Integer> categoryIdSet) {
+        List<Category> categories = categoryMapper.selectAll();
+        findSubCategoryId(id, categoryIdSet, categories);
+    }
+
+    public void findSubCategoryId(Integer id, Set<Integer> categoryIdSet, List<Category> categories){
+        for (Category category : categories) {
+            if (Objects.equals(category.getParentId(), id)) {
+                categoryIdSet.add(category.getId());
+                findSubCategoryId(category.getId(), categoryIdSet);
+            }
+        }
     }
 
     private void findSubCategory(List<Category> categories, List<CategoryVo> categoryVoList) {
