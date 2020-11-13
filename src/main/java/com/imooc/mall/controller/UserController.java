@@ -1,6 +1,6 @@
 package com.imooc.mall.controller;
 
-import com.imooc.mall.consts.MailConst;
+import com.imooc.mall.consts.MallConst;
 import com.imooc.mall.enums.ResponseEnum;
 import com.imooc.mall.form.UserLoginForm;
 import com.imooc.mall.form.UserRegisterForm;
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping
     public ResponseVo<User> user(HttpSession session) {
-        User user = (User) session.getAttribute(MailConst.CURRENT_USER);
+        User user = (User) session.getAttribute(MallConst.CURRENT_USER);
         user.setPassword("");
         return ResponseVo.success(user);
     }
@@ -56,14 +56,14 @@ public class UserController {
 
         }
         final ResponseVo<User> userResponse = userService.login(loginForm.getUsername(), loginForm.getPassword());
-        session.setAttribute(MailConst.CURRENT_USER, userResponse.getData());
+        session.setAttribute(MallConst.CURRENT_USER, userResponse.getData());
 
         return userResponse;
     }
 
     @GetMapping("/logout")
     public ResponseVo logout(HttpSession session) {
-        session.removeAttribute(MailConst.CURRENT_USER);
+        session.removeAttribute(MallConst.CURRENT_USER);
         return ResponseVo.success("退出成功");
     }
 }

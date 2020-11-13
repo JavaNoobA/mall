@@ -1,6 +1,6 @@
 package com.imooc.mall;
 
-import com.imooc.mall.consts.MailConst;
+import com.imooc.mall.consts.MallConst;
 import com.imooc.mall.exception.UserLoginException;
 import com.imooc.mall.pojo.User;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -20,7 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         final HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(MailConst.CURRENT_USER);
+        User user = (User) session.getAttribute(MallConst.CURRENT_USER);
         if (user == null) {
             //response.getWriter().print("可以直接写返回的json数据");
             //return false;
